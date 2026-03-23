@@ -156,7 +156,10 @@ a {
   backdrop-filter: blur(12px);
 }
 
-.library-panel,
+.library-panel {
+  grid-template-rows: auto auto auto auto minmax(0, 1fr);
+}
+
 .detail-panel {
   grid-template-rows: auto auto auto minmax(0, 1fr);
 }
