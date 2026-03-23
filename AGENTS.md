@@ -17,6 +17,7 @@ This repository follows a small-step repair workflow.
 - After each modification, build a fresh package so the user can review the current app state.
 - After each successful package build, launch the latest packaged app automatically unless the user says not to.
 - If packaging fails, stop and report the failure before making more changes.
+- Do not change line endings or reformat surrounding lines unless the task explicitly requires it.
 
 ## Commit Messages
 
