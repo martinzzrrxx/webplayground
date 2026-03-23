@@ -112,14 +112,20 @@ a {
 
 .badge {
   padding: 6px 10px;
+  min-width: 0;
+  max-width: 100%;
   background: rgba(11, 87, 208, 0.12);
   color: var(--accent);
+  overflow-wrap: anywhere;
 }
 
 .subtle-badge {
   padding: 6px 10px;
+  min-width: 0;
+  max-width: 100%;
   background: rgba(16, 35, 61, 0.08);
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .chip {
@@ -262,6 +268,8 @@ a {
 .empty-state h3 {
   margin: 0;
   font-size: 20px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .result-card p,
