@@ -1,0 +1,8 @@
+node_modules/
+.vite/
+out/
+.forge/
+maker-*
+dist/
+*.log
+

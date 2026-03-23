@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: ws: http://localhost:* ws://localhost:*; worker-src 'self' blob:; frame-src 'self';"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Study Lab</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">HTML / CSS / JavaScript Study Tool</p>
+          <h1>Web Study Lab</h1>
+        </div>
+        <div class="header-summary">
+          <span class="pill">Knowledge cards</span>
+          <span class="pill">Official sources</span>
+          <span class="pill">Live playground</span>
+        </div>
+      </header>
+
+      <main class="workspace-grid">
+        <aside class="panel library-panel">
+          <div class="panel-header">
+            <div>
+              <p class="section-label">Library</p>
+              <h2>Search topics</h2>
+            </div>
+            <span id="resultCount" class="status-chip">0 results</span>
+          </div>
+
+          <label class="search-field">
+            <span>Search</span>
+            <input id="searchInput" type="search" placeholder="Search HTML, CSS, or JavaScript…" autocomplete="off" />
+          </label>
+
+          <div class="filter-group">
+            <p class="filter-label">Topic</p>
+            <div class="chip-row" id="topicFilter">
+              <button class="chip is-active" data-topic="all" type="button">All</button>
+              <button class="chip" data-topic="html" type="button">HTML</button>
+              <button class="chip" data-topic="css" type="button">CSS</button>
+              <button class="chip" data-topic="javascript" type="button">JavaScript</button>
+            </div>
+          </div>
+
+          <div class="filter-grid">
+            <label class="select-field">
+              <span>Source</span>
+              <select id="sourceFilter">
+                <option value="all">All sources</option>
+                <option value="guide">Guides</option>
+                <option value="standard">Standards</option>
+              </select>
+            </label>
+
+            <label class="select-field">
+              <span>Kind</span>
+              <select id="kindFilter">
+                <option value="all">All kinds</option>
+                <option value="element">Element</option>
+                <option value="property">Property</option>
+                <option value="selector">Selector</option>
+                <option value="at-rule">At-rule</option>
+                <option value="method">Method</option>
+                <option value="object">Object</option>
+              </select>
+            </label>
+          </div>
+
+          <div id="resultsList" class="results-list"></div>
+        </aside>
+
+        <section class="panel detail-panel">
+          <div class="panel-header">
+            <div>
+              <p class="section-label">Card</p>
+              <h2>Knowledge card</h2>
+            </div>
+          </div>
+
+          <article id="detailCard" class="detail-card empty-state">
+            <h3>Select a topic</h3>
+            <p>Search the library to load a knowledge card, notes, and the official source.</p>
+          </article>
+
+          <section class="notes-card">
+            <div class="panel-header notes-header">
+              <div>
+                <p class="section-label">Notes</p>
+                <h2>Markdown notes</h2>
+              </div>
+              <span id="noteStatus" class="status-chip">No document selected</span>
+            </div>
+
+            <textarea
+              id="noteEditor"
+              class="note-editor"
+              placeholder="Write your learning notes, reminders, and follow-up questions here…"
+              disabled
+            ></textarea>
+          </section>
+        </section>
+
+        <section class="panel studio-panel">
+          <div class="workspace-tabs">
+            <button id="sourceTab" class="workspace-tab is-active" data-workspace="source" type="button">Source</button>
+            <button id="playgroundTab" class="workspace-tab" data-workspace="playground" type="button">Playground</button>
+          </div>
+
+          <div id="sourceWorkspace" class="workspace-view is-active">
+            <div class="panel-header source-header">
+              <div>
+                <p class="section-label">Official docs</p>
+                <h2 id="sourceTitle">Embedded source viewer</h2>
+              </div>
+              <span id="sourceStatus" class="status-chip">Select a topic to load an official source.</span>
+            </div>
+
+            <div class="toolbar-row">
+              <div class="chip-row">
+                <button id="guideModeButton" class="chip is-active" type="button">Guide</button>
+                <button id="standardModeButton" class="chip" type="button">Standard</button>
+              </div>
+
+              <div class="action-row">
+                <button id="refreshSourceButton" class="action-button" type="button">Reload source</button>
+                <button id="openExternalButton" class="action-button" type="button">Open in browser</button>
+                <button id="hideSourceButton" class="action-button ghost" type="button">Hide panel</button>
+              </div>
+            </div>
+
+            <div id="sourceMount" class="source-mount">
+              <div id="sourcePlaceholder" class="source-placeholder">
+                Pick a document and keep the Source tab active to view the official page inside the app.
+              </div>
+            </div>
+          </div>
+
+          <div id="playgroundWorkspace" class="workspace-view">
+            <div class="panel-header">
+              <div>
+                <p class="section-label">Practice</p>
+                <h2>Live playground</h2>
+              </div>
+              <span id="draftStatus" class="status-chip">Local drafts ready</span>
+            </div>
+
+            <div class="toolbar-row playground-toolbar">
+              <div class="draft-picker">
+                <label class="select-field compact">
+                  <span>Draft</span>
+                  <select id="draftSelect"></select>
+                </label>
+                <label class="search-field compact">
+                  <span>Title</span>
+                  <input id="draftTitle" type="text" placeholder="Draft title" />
+                </label>
+              </div>
+
+              <div class="action-row">
+                <button class="action-button" data-template="blank" type="button">New blank</button>
+                <button class="action-button" data-template="semantic" type="button">New semantic</button>
+                <button class="action-button" data-template="dom" type="button">New DOM</button>
+                <button id="saveDraftButton" class="action-button" type="button">Save now</button>
+                <button id="deleteDraftButton" class="action-button ghost" type="button">Delete draft</button>
+              </div>
+            </div>
+
+            <div class="editor-grid">
+              <section class="editor-card">
+                <div class="editor-card-header">
+                  <span>HTML</span>
+                </div>
+                <div id="htmlEditor" class="editor-host"></div>
+              </section>
+
+              <section class="editor-card">
+                <div class="editor-card-header">
+                  <span>CSS</span>
+                </div>
+                <div id="cssEditor" class="editor-host"></div>
+              </section>
+
+              <section class="editor-card">
+                <div class="editor-card-header">
+                  <span>JavaScript</span>
+                </div>
+                <div id="javascriptEditor" class="editor-host"></div>
+              </section>
+            </div>
+
+            <div class="preview-grid">
+              <section class="preview-card">
+                <div class="editor-card-header">
+                  <span>Preview</span>
+                  <button id="runPreviewButton" class="mini-button" type="button">Run</button>
+                </div>
+                <iframe id="previewFrame" class="preview-frame" sandbox="allow-scripts"></iframe>
+              </section>
+
+              <section class="console-card">
+                <div class="editor-card-header">
+                  <span>Console</span>
+                  <button id="clearConsoleButton" class="mini-button" type="button">Clear</button>
+                </div>
+                <ul id="consoleOutput" class="console-output"></ul>
+              </section>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
+
