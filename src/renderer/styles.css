@@ -220,12 +220,14 @@ a {
   min-height: 0;
   display: grid;
   gap: 12px;
-  overflow: auto;
-  padding-right: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 2px 12px 8px 2px;
 }
 
 .result-card {
   width: 100%;
+  min-width: 0;
   display: grid;
   gap: 10px;
   text-align: left;
@@ -237,15 +239,19 @@ a {
   cursor: pointer;
 }
 
-.result-card:hover,
-.result-card.is-selected {
+.result-card:hover {
   border-color: rgba(11, 87, 208, 0.25);
   transform: translateY(-1px);
+}
+
+.result-card.is-selected {
+  border-color: rgba(11, 87, 208, 0.25);
 }
 
 .result-topline,
 .detail-topline {
   display: flex;
+  min-width: 0;
   justify-content: space-between;
   gap: 10px;
   flex-wrap: wrap;
@@ -271,6 +277,7 @@ a {
   font-size: 12px;
   font-weight: 700;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .detail-card,
