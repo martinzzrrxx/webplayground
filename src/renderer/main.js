@@ -199,25 +199,6 @@ function renderDetailCard() {
     <p class="detail-summary">${escapeHtml(state.activeDoc.summary)}</p>
 
     <section class="info-block">
-      <h4>Official sources</h4>
-      <div class="link-stack">
-        <button class="source-link-button" data-detail-source="guide" type="button">${escapeHtml(state.activeDoc.sourceLabel)}</button>
-        ${
-          state.activeDoc.specUrl
-            ? `<button class="source-link-button" data-detail-source="standard" type="button">${escapeHtml(state.activeDoc.specLabel)}</button>`
-            : "<span class=\"muted-text\">No standard link mapped yet.</span>"
-        }
-      </div>
-    </section>
-
-    <section class="info-block">
-      <h4>Concept anchors</h4>
-      <div class="chip-row">
-        ${state.activeDoc.anchors.map((anchor) => `<span class="subtle-badge">${escapeHtml(anchor)}</span>`).join("")}
-      </div>
-    </section>
-
-    <section class="info-block">
       <h4>Example</h4>
       <pre class="code-block"><code>${escapeHtml(state.activeDoc.exampleSnippet)}</code></pre>
     </section>
