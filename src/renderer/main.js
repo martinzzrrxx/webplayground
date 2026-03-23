@@ -168,6 +168,12 @@ function renderResultList() {
     .join("");
 }
 
+function syncSelectedResultCard() {
+  for (const card of refs.resultsList.querySelectorAll("[data-doc-id]")) {
+    card.classList.toggle("is-selected", card.getAttribute("data-doc-id") === state.activeDocId);
+  }
+}
+
 function renderDetailCard() {
   if (!state.activeDoc) {
     refs.detailCard.className = "detail-card empty-state";
@@ -290,7 +296,7 @@ async function selectDocument(docId) {
 
   state.activeDocId = docId;
   state.activeDoc = await window.learningApp.getDocDetail(docId);
-  renderResultList();
+  syncSelectedResultCard();
   renderDetailCard();
   refs.sourceTitle.textContent = `${state.activeDoc.title} · ${state.activeSourceMode === "guide" ? "Guide" : "Standard"}`;
   updateSourceModeButtons();

@@ -247,7 +247,6 @@ a {
 
 .result-card:hover {
   border-color: rgba(11, 87, 208, 0.25);
-  transform: translateY(-1px);
 }
 
 .result-card.is-selected {
