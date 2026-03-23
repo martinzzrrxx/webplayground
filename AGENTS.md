@@ -14,6 +14,8 @@ This repository follows a small-step repair workflow.
 - Change one problem at a time.
 - Verify the specific fix before moving to the next issue.
 - Do not mix layout, behavior, and cleanup changes in one patch unless the user approves it.
+- After each modification, build a fresh package so the user can review the current app state.
+- If packaging fails, stop and report the failure before making more changes.
 
 ## Commit Messages
 
