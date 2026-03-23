@@ -14,3 +14,7 @@ This repository follows a small-step repair workflow.
 - Change one problem at a time.
 - Verify the specific fix before moving to the next issue.
 - Do not mix layout, behavior, and cleanup changes in one patch unless the user approves it.
+
+## Commit Messages
+
+- Use the format `[Codex] Feature description.`

@@ -306,8 +306,8 @@ async function syncSourceView() {
   }
 
   if (!state.activeDoc) {
-    refs.sourceStatus.textContent = "Select a topic to load an official source.";
-    refs.sourcePlaceholder.textContent = "Pick a document and keep the Source tab active to view the official page inside the app.";
+    refs.sourceStatus.textContent = "Select a topic to load the official docs.";
+    refs.sourcePlaceholder.textContent = "Pick a document and keep the Docs tab active to view the official page inside the app.";
     await window.learningApp.hideEmbeddedSource();
     return;
   }
@@ -325,8 +325,8 @@ async function syncSourceView() {
   }
 
   refs.sourceTitle.textContent = `${state.activeDoc.title} · ${state.activeSourceMode === "guide" ? "Guide" : "Standard"}`;
-  refs.sourceStatus.textContent = "Loading official source…";
-  refs.sourcePlaceholder.textContent = "Loading official source inside the app…";
+  refs.sourceStatus.textContent = "Loading official docs…";
+  refs.sourcePlaceholder.textContent = "Loading official docs inside the app…";
 
   const result = await window.learningApp.openEmbeddedSource({
     docId: state.activeDocId,
@@ -334,7 +334,7 @@ async function syncSourceView() {
     bounds: readSourceBounds()
   });
 
-  refs.sourceStatus.textContent = result.sourceUrl ? `${result.sourceLabel} loaded inside the app.` : "The embedded source is unavailable.";
+  refs.sourceStatus.textContent = result.sourceUrl ? `${result.sourceLabel} loaded inside the app.` : "The embedded docs view is unavailable.";
 }
 
 function appendConsoleEntry(level, text) {
@@ -540,8 +540,8 @@ function bindEvents() {
   });
 
   refs.hideSourceButton.addEventListener("click", () => {
-    refs.sourceStatus.textContent = "Embedded source panel hidden.";
-    refs.sourcePlaceholder.textContent = "Switch back to Source and reload the document when you want to reopen the official page.";
+    refs.sourceStatus.textContent = "Embedded docs panel hidden.";
+    refs.sourcePlaceholder.textContent = "Switch back to Docs and reload the document when you want to reopen the official page.";
     void window.learningApp.hideEmbeddedSource();
   });
 
