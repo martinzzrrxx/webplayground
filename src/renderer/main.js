@@ -44,7 +44,13 @@ const state = {
   activeDraftId: null,
   activeTemplateId: "blank",
   suppressDraftChanges: false,
-  editorsBundle: null
+  editorsBundle: null,
+  playgroundPanels: {
+    html: true,
+    css: false,
+    javascript: false,
+    console: false
+  }
 };
 
 const refs = {
@@ -129,7 +135,34 @@ function setWorkspace(nextWorkspace) {
     void syncSourceView();
   } else {
     void window.learningApp.hideEmbeddedSource();
+    window.requestAnimationFrame(layoutPlaygroundEditors);
   }
+}
+
+function layoutPlaygroundEditors() {
+  if (!state.editorsBundle) {
+    return;
+  }
+
+  Object.values(state.editorsBundle.editors).forEach((editor) => editor.layout());
+}
+
+function syncPlaygroundPanels() {
+  for (const panel of refs.playgroundWorkspace.querySelectorAll("[data-playground-panel]")) {
+    const panelName = panel.getAttribute("data-playground-panel");
+    const isCollapsed = panelName !== "preview" && !state.playgroundPanels[panelName];
+    panel.classList.toggle("is-collapsed", isCollapsed);
+
+    const toggle = panel.querySelector("[data-panel-toggle]");
+
+    if (toggle) {
+      toggle.textContent = isCollapsed ? "▸" : "▾";
+      toggle.setAttribute("aria-expanded", String(!isCollapsed));
+      toggle.setAttribute("aria-label", `${isCollapsed ? "Expand" : "Collapse"} ${panelName} panel`);
+    }
+  }
+
+  window.requestAnimationFrame(layoutPlaygroundEditors);
 }
 
 function updateSourceModeButtons() {
@@ -684,6 +717,29 @@ function bindEvents() {
     refs.consoleOutput.innerHTML = "";
   });
 
+  refs.playgroundWorkspace.addEventListener("click", (event) => {
+    if (event.target.closest("#runPreviewButton, #clearConsoleButton")) {
+      return;
+    }
+
+    const toggle = event.target.closest("[data-panel-toggle]");
+    const header = event.target.closest(".collapsible-card .editor-card-header");
+
+    if (!toggle && !header) {
+      return;
+    }
+
+    const control = toggle ?? header.querySelector("[data-panel-toggle]");
+
+    if (!control) {
+      return;
+    }
+
+    const panelName = control.getAttribute("data-panel-toggle");
+    state.playgroundPanels[panelName] = !state.playgroundPanels[panelName];
+    syncPlaygroundPanels();
+  });
+
   window.addEventListener("message", (event) => {
     if (event.source !== refs.previewFrame.contentWindow) {
       return;
@@ -738,6 +794,7 @@ async function init() {
 
   bindEvents();
   bindEditorChanges();
+  syncPlaygroundPanels();
   setTopicButtons();
   await refreshSearch();
   await ensureInitialDraft();

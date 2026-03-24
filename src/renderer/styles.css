@@ -451,6 +451,11 @@ a {
   min-height: 0;
 }
 
+#playgroundWorkspace.workspace-view.is-active {
+  grid-template-rows: auto auto minmax(0, 1fr);
+  align-content: stretch;
+}
+
 #sourceWorkspace.workspace-view.is-active {
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-rows: auto minmax(0, 1fr);
@@ -553,6 +558,8 @@ a {
 
 .playground-toolbar {
   justify-content: space-between;
+  gap: 8px 12px;
+  align-items: end;
 }
 
 .draft-picker {
@@ -569,18 +576,72 @@ a {
   min-width: 170px;
 }
 
+.draft-actions-field {
+  min-width: 170px;
+}
+
 .new-draft-field select {
   padding: 11px 14px;
 }
 
-.editor-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  min-height: 340px;
+.draft-actions-field select {
+  padding: 11px 14px;
 }
 
-.editor-card {
+#playgroundWorkspace .panel-header {
+  align-items: center;
+}
+
+#playgroundWorkspace .panel-header h2 {
+  font-size: 18px;
+}
+
+#playgroundWorkspace .status-chip {
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+#playgroundWorkspace .draft-picker,
+#playgroundWorkspace .action-row {
+  gap: 8px;
+}
+
+#playgroundWorkspace .search-field,
+#playgroundWorkspace .select-field {
+  gap: 5px;
+}
+
+#playgroundWorkspace .compact span {
+  font-size: 9px;
+}
+
+#playgroundWorkspace .search-field input,
+#playgroundWorkspace .select-field select {
+  padding: 10px 12px;
+  border-radius: 14px;
+}
+
+.playground-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 1.08fr);
+  gap: 14px;
+  min-height: 0;
+}
+
+.playground-column {
+  min-height: 0;
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.playground-column-right {
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.editor-card,
+.preview-card,
+.console-card {
   min-height: 0;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
@@ -600,23 +661,44 @@ a {
   color: var(--muted);
 }
 
+.collapsible-card .editor-card-header {
+  cursor: pointer;
+}
+
+.panel-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-toggle {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.panel-body {
+  min-height: 0;
+}
+
 .editor-host {
   min-height: 340px;
 }
 
-.preview-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
-  gap: 14px;
-  min-height: 0;
+.playground-column-left .editor-card:first-child .editor-host {
+  min-height: 420px;
 }
 
-.preview-card,
-.console-card {
-  min-height: 0;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  overflow: hidden;
+.preview-card .panel-body {
+  min-height: 420px;
 }
 
 .preview-frame {
@@ -636,6 +718,19 @@ a {
   display: grid;
   gap: 10px;
   background: #0f172a;
+}
+
+.collapsible-card.is-collapsed {
+  grid-template-rows: auto 0fr;
+}
+
+.collapsible-card.is-collapsed .panel-body {
+  overflow: hidden;
+}
+
+.collapsible-card.is-collapsed .editor-host,
+.collapsible-card.is-collapsed .console-output {
+  min-height: 0;
 }
 
 .console-entry {
@@ -669,8 +764,12 @@ a {
     grid-template-columns: 300px 360px minmax(540px, 1fr);
   }
 
-  .editor-grid {
+  .playground-layout {
     grid-template-columns: 1fr;
+  }
+
+  .playground-column-right {
+    grid-template-rows: minmax(0, 1fr) auto;
   }
 }
 

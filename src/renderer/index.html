@@ -175,45 +175,63 @@
               </div>
             </div>
 
-            <div class="editor-grid">
-              <section class="editor-card">
-                <div class="editor-card-header">
-                  <span>HTML</span>
-                </div>
-                <div id="htmlEditor" class="editor-host"></div>
-              </section>
+            <div class="playground-layout">
+              <div class="playground-column playground-column-left">
+                <section class="editor-card collapsible-card" data-playground-panel="html">
+                  <div class="editor-card-header">
+                    <span>HTML</span>
+                    <button class="panel-toggle" data-panel-toggle="html" type="button" aria-expanded="true" aria-label="Collapse HTML panel">▾</button>
+                  </div>
+                  <div class="panel-body">
+                    <div id="htmlEditor" class="editor-host"></div>
+                  </div>
+                </section>
 
-              <section class="editor-card">
-                <div class="editor-card-header">
-                  <span>CSS</span>
-                </div>
-                <div id="cssEditor" class="editor-host"></div>
-              </section>
+                <section class="editor-card collapsible-card is-collapsed" data-playground-panel="css">
+                  <div class="editor-card-header">
+                    <span>CSS</span>
+                    <button class="panel-toggle" data-panel-toggle="css" type="button" aria-expanded="false" aria-label="Expand CSS panel">▸</button>
+                  </div>
+                  <div class="panel-body">
+                    <div id="cssEditor" class="editor-host"></div>
+                  </div>
+                </section>
 
-              <section class="editor-card">
-                <div class="editor-card-header">
-                  <span>JavaScript</span>
-                </div>
-                <div id="javascriptEditor" class="editor-host"></div>
-              </section>
-            </div>
+                <section class="editor-card collapsible-card is-collapsed" data-playground-panel="javascript">
+                  <div class="editor-card-header">
+                    <span>JavaScript</span>
+                    <button class="panel-toggle" data-panel-toggle="javascript" type="button" aria-expanded="false" aria-label="Expand JavaScript panel">▸</button>
+                  </div>
+                  <div class="panel-body">
+                    <div id="javascriptEditor" class="editor-host"></div>
+                  </div>
+                </section>
+              </div>
 
-            <div class="preview-grid">
-              <section class="preview-card">
-                <div class="editor-card-header">
-                  <span>Preview</span>
-                  <button id="runPreviewButton" class="mini-button" type="button">Run</button>
-                </div>
-                <iframe id="previewFrame" class="preview-frame" sandbox="allow-scripts"></iframe>
-              </section>
+              <div class="playground-column playground-column-right">
+                <section class="preview-card" data-playground-panel="preview">
+                  <div class="editor-card-header">
+                    <span>Preview</span>
+                    <button id="runPreviewButton" class="mini-button" type="button">Run</button>
+                  </div>
+                  <div class="panel-body">
+                    <iframe id="previewFrame" class="preview-frame" sandbox="allow-scripts"></iframe>
+                  </div>
+                </section>
 
-              <section class="console-card">
-                <div class="editor-card-header">
-                  <span>Console</span>
-                  <button id="clearConsoleButton" class="mini-button" type="button">Clear</button>
-                </div>
-                <ul id="consoleOutput" class="console-output"></ul>
-              </section>
+                <section class="console-card collapsible-card is-collapsed" data-playground-panel="console">
+                  <div class="editor-card-header">
+                    <span>Console</span>
+                    <div class="panel-actions">
+                      <button id="clearConsoleButton" class="mini-button" type="button">Clear</button>
+                      <button class="panel-toggle" data-panel-toggle="console" type="button" aria-expanded="false" aria-label="Expand Console panel">▸</button>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <ul id="consoleOutput" class="console-output"></ul>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
         </section>
