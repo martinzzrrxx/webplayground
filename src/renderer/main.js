@@ -75,17 +75,16 @@ const refs = {
   hideSourceButton: document.querySelector("#hideSourceButton"),
   draftStatus: document.querySelector("#draftStatus"),
   draftSelect: document.querySelector("#draftSelect"),
+  newDraftSelect: document.querySelector("#newDraftSelect"),
+  draftActionSelect: document.querySelector("#draftActionSelect"),
   draftTitle: document.querySelector("#draftTitle"),
-  saveDraftButton: document.querySelector("#saveDraftButton"),
-  deleteDraftButton: document.querySelector("#deleteDraftButton"),
   htmlEditor: document.querySelector("#htmlEditor"),
   cssEditor: document.querySelector("#cssEditor"),
   javascriptEditor: document.querySelector("#javascriptEditor"),
   previewFrame: document.querySelector("#previewFrame"),
   runPreviewButton: document.querySelector("#runPreviewButton"),
   consoleOutput: document.querySelector("#consoleOutput"),
-  clearConsoleButton: document.querySelector("#clearConsoleButton"),
-  templateButtons: Array.from(document.querySelectorAll("[data-template]"))
+  clearConsoleButton: document.querySelector("#clearConsoleButton")
 };
 
 function escapeHtml(value) {
@@ -481,10 +480,10 @@ async function openDraft(draftId) {
   runPreview();
 }
 
-async function createDraftFromTemplate(templateId) {
+async function createDraftFromTemplate(templateId, title = null) {
   const template = templates[templateId];
   const draft = await window.learningApp.saveDraft({
-    title: template.title,
+    title: title?.trim() || template.title,
     html: template.html,
     css: template.css,
     javascript: template.javascript,
@@ -637,30 +636,47 @@ function bindEvents() {
     refs.draftStatus.textContent = "Saved locally";
   });
 
-  refs.templateButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      void createDraftFromTemplate(button.getAttribute("data-template"));
-    });
-  });
+  refs.newDraftSelect.addEventListener("change", async () => {
+    const templateId = refs.newDraftSelect.value;
 
-  refs.saveDraftButton.addEventListener("click", () => {
-    void saveActiveDraft(false);
-  });
-
-  refs.deleteDraftButton.addEventListener("click", async () => {
-    if (!state.activeDraftId) {
+    if (!templateId) {
       return;
     }
 
-    await window.learningApp.deleteDraft(state.activeDraftId);
-    await refreshDraftOptions();
+    const draftName = window.prompt("Name this draft:", templates[templateId].title);
+    refs.newDraftSelect.value = "";
 
-    if (!state.drafts.length) {
-      await createDraftFromTemplate("blank");
+    if (!draftName?.trim()) {
       return;
     }
 
-    await openDraft(state.drafts[0].draftId);
+    await createDraftFromTemplate(templateId, draftName.trim());
+  });
+
+  refs.draftActionSelect.addEventListener("change", async () => {
+    const action = refs.draftActionSelect.value;
+    refs.draftActionSelect.value = "";
+
+    if (action === "save") {
+      await saveActiveDraft(false);
+      return;
+    }
+
+    if (action === "delete") {
+      if (!state.activeDraftId) {
+        return;
+      }
+
+      await window.learningApp.deleteDraft(state.activeDraftId);
+      await refreshDraftOptions();
+
+      if (!state.drafts.length) {
+        await createDraftFromTemplate("blank");
+        return;
+      }
+
+      await openDraft(state.drafts[0].draftId);
+    }
   });
 
   refs.runPreviewButton.addEventListener("click", runPreview);

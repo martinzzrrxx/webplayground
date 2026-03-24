@@ -155,11 +155,23 @@
               </div>
 
               <div class="action-row">
-                <button class="action-button" data-template="blank" type="button">New blank</button>
-                <button class="action-button" data-template="semantic" type="button">New semantic</button>
-                <button class="action-button" data-template="dom" type="button">New DOM</button>
-                <button id="saveDraftButton" class="action-button" type="button">Save now</button>
-                <button id="deleteDraftButton" class="action-button ghost" type="button">Delete draft</button>
+                <label class="select-field compact new-draft-field">
+                  <span>New draft</span>
+                  <select id="newDraftSelect">
+                    <option value="">Choose template</option>
+                    <option value="blank">Blank</option>
+                    <option value="semantic">Semantic</option>
+                    <option value="dom">DOM</option>
+                  </select>
+                </label>
+                <label class="select-field compact draft-actions-field">
+                  <span>Actions</span>
+                  <select id="draftActionSelect">
+                    <option value="">Draft actions</option>
+                    <option value="save">Save</option>
+                    <option value="delete">Delete</option>
+                  </select>
+                </label>
               </div>
             </div>
 

@@ -565,6 +565,14 @@ a {
   font-size: 10px;
 }
 
+.new-draft-field {
+  min-width: 170px;
+}
+
+.new-draft-field select {
+  padding: 11px 14px;
+}
+
 .editor-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
