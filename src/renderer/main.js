@@ -289,7 +289,7 @@ async function loadNote() {
 
   if (!state.activeDocId) {
     setNoteValue("");
-    setNoteStatus("No document selected");
+    setNoteStatus("Select a topic to start writing");
     await closeNotesOverlay();
     state.noteLoading = false;
     return;
@@ -297,7 +297,7 @@ async function loadNote() {
 
   const note = await window.learningApp.getNote(state.activeDocId);
   setNoteValue(note?.contentMarkdown ?? "");
-  setNoteStatus("Saved locally");
+  setNoteStatus("Saved");
   state.noteLoading = false;
 }
 
@@ -308,7 +308,7 @@ async function saveCurrentNote() {
 
   clearTimeout(state.noteTimer);
   state.noteTimer = null;
-  setNoteStatus("Saving locally…");
+  setNoteStatus("Saving notes…");
 
   const currentDocId = state.activeDocId;
   await window.learningApp.saveNote({
@@ -317,7 +317,7 @@ async function saveCurrentNote() {
   });
 
   if (state.activeDocId === currentDocId) {
-    setNoteStatus("Saved locally");
+    setNoteStatus("Saved");
   }
 }
 
@@ -326,7 +326,7 @@ function scheduleNoteSave() {
     return;
   }
 
-  setNoteStatus("Saving locally…");
+  setNoteStatus("Saving notes…");
   clearTimeout(state.noteTimer);
   state.noteTimer = window.setTimeout(() => {
     void saveCurrentNote();
