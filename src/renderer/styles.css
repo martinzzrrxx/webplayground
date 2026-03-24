@@ -49,7 +49,7 @@ a {
   height: 100vh;
   display: grid;
   grid-template-rows: minmax(0, 1fr);
-  padding: 18px;
+  padding: 14px;
   gap: 0;
 }
 
@@ -90,7 +90,7 @@ a {
 .action-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -102,20 +102,20 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  font-size: 12px;
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 700;
 }
 
 .pill,
 .status-chip {
-  padding: 8px 12px;
+  padding: 6px 10px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.72);
 }
 
 .badge {
-  padding: 6px 10px;
+  padding: 5px 9px;
   min-width: 0;
   max-width: 100%;
   background: rgba(11, 87, 208, 0.12);
@@ -124,7 +124,7 @@ a {
 }
 
 .subtle-badge {
-  padding: 6px 10px;
+  padding: 5px 9px;
   min-width: 0;
   max-width: 100%;
   background: rgba(16, 35, 61, 0.08);
@@ -133,7 +133,7 @@ a {
 }
 
 .chip {
-  padding: 8px 12px;
+  padding: 6px 10px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.78);
   color: var(--muted);
@@ -150,17 +150,17 @@ a {
 .workspace-grid {
   display: grid;
   grid-template-columns: 320px 400px minmax(580px, 1fr);
-  gap: 18px;
+  gap: 14px;
   min-height: 0;
 }
 
 .panel {
   min-height: 0;
   display: grid;
-  gap: 14px;
-  padding: 18px;
+  gap: 12px;
+  padding: 14px;
   border: 1px solid var(--line);
-  border-radius: 28px;
+  border-radius: 24px;
   background: linear-gradient(180deg, var(--surface-strong) 0%, var(--surface) 100%);
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
@@ -186,64 +186,90 @@ a {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 .search-field,
 .select-field {
   display: grid;
-  gap: 8px;
+  gap: 5px;
 }
 
 .search-field span,
 .select-field span,
 .filter-label {
   margin: 0;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
-.search-field input,
-.select-field select {
+.search-field input {
   width: 100%;
-  padding: 13px 14px;
-  border-radius: 16px;
+  padding: 6px 9px;
+  border-radius: 6px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.94);
   color: var(--text);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.select-field select {
+  width: 100%;
+  padding: 1px 4px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.search-field input::placeholder,
+.note-editor::placeholder,
+.note-editor-expanded::placeholder {
+  font-weight: 400;
+  font-size: 12px;
+  color: #728197;
 }
 
 .filter-group,
 .filter-grid {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .filter-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.library-panel .filter-grid .select-field select {
+  height: 28px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
 .results-list {
   min-height: 0;
   display: grid;
-  gap: 12px;
+  gap: 10px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 2px 12px 8px 2px;
+  padding: 2px 10px 6px 2px;
 }
 
 .result-card {
   width: 100%;
   min-width: 0;
   display: grid;
-  gap: 10px;
+  gap: 8px;
   text-align: left;
-  padding: 16px;
+  padding: 14px;
   border: 1px solid transparent;
-  border-radius: 20px;
+  border-radius: 18px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(245, 247, 250, 0.95) 100%);
   color: inherit;
   cursor: pointer;
@@ -293,19 +319,23 @@ a {
 
 .detail-card,
 .notes-card,
-.editor-card,
-.preview-card,
-.console-card {
+.editor-card {
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: 14px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.96) 100%);
 }
 
 .detail-card,
-.notes-card,
+.notes-card {
+  padding: 14px;
+}
+
 .preview-card,
 .console-card {
-  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.96) 100%);
 }
 
 .detail-card {
@@ -313,7 +343,7 @@ a {
   overflow: auto;
   display: grid;
   align-content: start;
-  gap: 18px;
+  gap: 14px;
 }
 
 .detail-card.empty-state {
@@ -323,7 +353,7 @@ a {
 
 .info-block {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .info-block h4 {
@@ -355,8 +385,8 @@ a {
 
 .code-block {
   margin: 0;
-  padding: 16px;
-  border-radius: 18px;
+  padding: 14px;
+  border-radius: 16px;
   background: #0f172a;
   color: #f8fafc;
   overflow: auto;
@@ -367,15 +397,15 @@ a {
   min-height: 0;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 14px;
+  gap: 12px;
 }
 
 .note-editor {
   width: 100%;
   min-height: 0;
   resize: none;
-  padding: 16px;
-  border-radius: 18px;
+  padding: 14px;
+  border-radius: 16px;
   border: 1px solid var(--line);
   background: rgba(248, 250, 252, 0.96);
   color: var(--text);
@@ -387,7 +417,7 @@ a {
   inset: 0;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 20px;
   background: rgba(16, 35, 61, 0.24);
   backdrop-filter: blur(8px);
   z-index: 50;
@@ -403,19 +433,19 @@ a {
   max-height: calc(100vh - 48px);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 16px;
-  padding: 24px;
+  gap: 14px;
+  padding: 20px;
   border: 1px solid rgba(16, 35, 61, 0.1);
-  border-radius: 28px;
+  border-radius: 24px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.99) 0%, rgba(246, 249, 252, 0.98) 100%);
   box-shadow: 0 40px 80px rgba(16, 35, 61, 0.22);
 }
 
 .note-editor-expanded {
   height: 100%;
-  padding: 20px;
-  font-size: 15px;
-  line-height: 1.75;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.65;
   background: rgba(255, 255, 255, 0.98);
 }
 
@@ -424,18 +454,18 @@ a {
   gap: 4px;
   padding: 3px;
   width: fit-content;
-  border-radius: 999px;
+  border-radius: 8px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.78);
 }
 
 .workspace-tab {
   border: 0;
-  padding: 7px 12px;
-  border-radius: 999px;
+  padding: 6px 11px;
+  border-radius: 8px;
   background: transparent;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -447,7 +477,7 @@ a {
 
 .workspace-view.is-active {
   display: grid;
-  gap: 14px;
+  gap: 12px;
   min-height: 0;
 }
 
@@ -502,7 +532,7 @@ a {
 
 #sourceWorkspace .chip,
 #sourceWorkspace .action-button {
-  padding: 6px 10px;
+  padding: 5px 9px;
   font-size: 11px;
 }
 
@@ -535,14 +565,14 @@ a {
 .action-button,
 .mini-button {
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.94);
   color: var(--text);
   cursor: pointer;
 }
 
 .action-button {
-  padding: 11px 14px;
+  padding: 9px 12px;
   font-weight: 700;
 }
 
@@ -551,8 +581,8 @@ a {
 }
 
 .mini-button {
-  padding: 8px 12px;
-  font-size: 12px;
+  padding: 4px 8px;
+  font-size: 10px;
   font-weight: 700;
 }
 
@@ -565,11 +595,11 @@ a {
 .draft-picker {
   display: grid;
   grid-template-columns: 180px 220px;
-  gap: 10px;
+  gap: 8px;
 }
 
 .compact span {
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .new-draft-field {
@@ -581,11 +611,11 @@ a {
 }
 
 .new-draft-field select {
-  padding: 11px 14px;
+  padding: 1px 4px;
 }
 
 .draft-actions-field select {
-  padding: 11px 14px;
+  padding: 1px 4px;
 }
 
 #playgroundWorkspace .panel-header {
@@ -617,8 +647,12 @@ a {
 
 #playgroundWorkspace .search-field input,
 #playgroundWorkspace .select-field select {
-  padding: 10px 12px;
-  border-radius: 14px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 .playground-layout {
@@ -652,9 +686,9 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
+  padding: 6px 9px;
   border-bottom: 1px solid var(--line);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -668,18 +702,18 @@ a {
 .panel-actions {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .panel-toggle {
   border: 1px solid var(--line);
-  border-radius: 999px;
-  width: 30px;
-  height: 30px;
+  border-radius: 6px;
+  width: 20px;
+  height: 20px;
   padding: 0;
   background: rgba(255, 255, 255, 0.94);
   color: var(--muted);
-  font-size: 14px;
+  font-size: 9px;
   font-weight: 800;
   line-height: 1;
   cursor: pointer;
@@ -706,12 +740,13 @@ a {
   height: 100%;
   min-height: 280px;
   border: 0;
+  border-radius: 8px;
   background: white;
 }
 
 .console-output {
   margin: 0;
-  padding: 14px 16px;
+  padding: 10px 12px;
   list-style: none;
   min-height: 0;
   overflow: auto;
