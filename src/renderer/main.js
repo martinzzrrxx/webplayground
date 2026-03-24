@@ -237,7 +237,11 @@ function renderDetailCard() {
 
     <section class="info-block">
       <h4>Example</h4>
-      <pre class="code-block"><code>${escapeHtml(state.activeDoc.exampleSnippet)}</code></pre>
+      <div class="code-block-frame">
+        <div class="code-block-scroll">
+          <pre class="code-block"><code>${escapeHtml(state.activeDoc.exampleSnippet)}</code></pre>
+        </div>
+      </div>
     </section>
   `;
 }
