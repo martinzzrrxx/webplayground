@@ -22,3 +22,4 @@ This repository follows a small-step repair workflow.
 ## Commit Messages
 
 - Use the format `[Codex] Feature description.`
+- When the user explicitly asks to commit code, run `git add` and `git commit` directly without asking for a separate confirmation.
