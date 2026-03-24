@@ -77,12 +77,12 @@
             </div>
           </div>
 
-          <article id="detailCard" class="detail-card empty-state">
+          <article id="detailCard" class="detail-card surface-card surface-card--padded empty-state">
             <h3>Select a topic</h3>
             <p>Search the library to load a knowledge card, notes, and the official source.</p>
           </article>
 
-          <section class="notes-card">
+          <section class="notes-card surface-card surface-card--padded">
             <div class="panel-header notes-header">
               <div>
                 <h2>Notes</h2>
@@ -177,7 +177,7 @@
 
             <div class="playground-layout">
               <div class="playground-column playground-column-left">
-                <section class="editor-card collapsible-card" data-playground-panel="html">
+                <section class="editor-card surface-card surface-card--shell collapsible-card" data-playground-panel="html">
                   <div class="editor-card-header">
                     <span>HTML</span>
                     <button class="panel-toggle" data-panel-toggle="html" type="button" aria-expanded="true" aria-label="Collapse HTML panel">▾</button>
@@ -187,7 +187,7 @@
                   </div>
                 </section>
 
-                <section class="editor-card collapsible-card is-collapsed" data-playground-panel="css">
+                <section class="editor-card surface-card surface-card--shell collapsible-card is-collapsed" data-playground-panel="css">
                   <div class="editor-card-header">
                     <span>CSS</span>
                     <button class="panel-toggle" data-panel-toggle="css" type="button" aria-expanded="false" aria-label="Expand CSS panel">▸</button>
@@ -197,7 +197,7 @@
                   </div>
                 </section>
 
-                <section class="editor-card collapsible-card is-collapsed" data-playground-panel="javascript">
+                <section class="editor-card surface-card surface-card--shell collapsible-card is-collapsed" data-playground-panel="javascript">
                   <div class="editor-card-header">
                     <span>JavaScript</span>
                     <button class="panel-toggle" data-panel-toggle="javascript" type="button" aria-expanded="false" aria-label="Expand JavaScript panel">▸</button>
@@ -209,7 +209,7 @@
               </div>
 
               <div class="playground-column playground-column-right">
-                <section class="preview-card" data-playground-panel="preview">
+                <section class="preview-card surface-card surface-card--compact" data-playground-panel="preview">
                   <div class="editor-card-header">
                     <span>Preview</span>
                     <button id="runPreviewButton" class="mini-button" type="button">Run</button>
@@ -219,7 +219,7 @@
                   </div>
                 </section>
 
-                <section class="console-card collapsible-card is-collapsed" data-playground-panel="console">
+                <section class="console-card surface-card surface-card--compact collapsible-card is-collapsed" data-playground-panel="console">
                   <div class="editor-card-header">
                     <span>Console</span>
                     <div class="panel-actions">

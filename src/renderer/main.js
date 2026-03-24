@@ -213,7 +213,7 @@ function syncSelectedResultCard() {
 
 function renderDetailCard() {
   if (!state.activeDoc) {
-    refs.detailCard.className = "detail-card empty-state";
+    refs.detailCard.className = "detail-card surface-card surface-card--padded empty-state";
     refs.detailCard.innerHTML = `
       <h3>Select a topic</h3>
       <p>Search the library to load a knowledge card, notes, and the official source.</p>
@@ -221,7 +221,7 @@ function renderDetailCard() {
     return;
   }
 
-  refs.detailCard.className = "detail-card";
+  refs.detailCard.className = "detail-card surface-card surface-card--padded";
   refs.detailCard.innerHTML = `
     <div class="detail-topline">
       <div>
