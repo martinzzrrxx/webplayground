@@ -29,6 +29,10 @@ body {
     linear-gradient(180deg, #eef4fb 0%, #f7f4ec 100%);
 }
 
+body.is-overlay-open {
+  overflow: hidden;
+}
+
 button,
 input,
 select,
@@ -376,6 +380,43 @@ a {
   background: rgba(248, 250, 252, 0.96);
   color: var(--text);
   line-height: 1.6;
+}
+
+.notes-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(16, 35, 61, 0.24);
+  backdrop-filter: blur(8px);
+  z-index: 50;
+}
+
+.notes-overlay[hidden] {
+  display: none;
+}
+
+.notes-dialog {
+  width: min(860px, calc(100vw - 48px));
+  min-height: min(680px, calc(100vh - 48px));
+  max-height: calc(100vh - 48px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid rgba(16, 35, 61, 0.1);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99) 0%, rgba(246, 249, 252, 0.98) 100%);
+  box-shadow: 0 40px 80px rgba(16, 35, 61, 0.22);
+}
+
+.note-editor-expanded {
+  height: 100%;
+  padding: 20px;
+  font-size: 15px;
+  line-height: 1.75;
+  background: rgba(255, 255, 255, 0.98);
 }
 
 .workspace-tabs {

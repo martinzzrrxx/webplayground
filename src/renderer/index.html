@@ -210,6 +210,25 @@
       </main>
     </div>
 
+    <div id="notesOverlay" class="notes-overlay" hidden>
+      <div id="notesDialog" class="notes-dialog" role="dialog" aria-modal="true" aria-labelledby="floatingNotesTitle">
+        <div class="panel-header notes-header">
+          <div>
+            <p class="section-label">Notes</p>
+            <h2 id="floatingNotesTitle">Markdown notes</h2>
+          </div>
+          <span id="floatingNoteStatus" class="status-chip">No document selected</span>
+        </div>
+
+        <textarea
+          id="floatingNoteEditor"
+          class="note-editor note-editor-expanded"
+          placeholder="Write your learning notes, reminders, and follow-up questions here…"
+          disabled
+        ></textarea>
+      </div>
+    </div>
+
     <script type="module" src="./main.js"></script>
   </body>
 </html>

@@ -38,6 +38,8 @@ const state = {
   searchTimer: null,
   draftTimer: null,
   previewTimer: null,
+  notesOverlayOpen: false,
+  sourceHiddenForNotes: false,
   drafts: [],
   activeDraftId: null,
   activeTemplateId: "blank",
@@ -55,6 +57,9 @@ const refs = {
   detailCard: document.querySelector("#detailCard"),
   noteEditor: document.querySelector("#noteEditor"),
   noteStatus: document.querySelector("#noteStatus"),
+  notesOverlay: document.querySelector("#notesOverlay"),
+  floatingNoteEditor: document.querySelector("#floatingNoteEditor"),
+  floatingNoteStatus: document.querySelector("#floatingNoteStatus"),
   sourceTab: document.querySelector("#sourceTab"),
   playgroundTab: document.querySelector("#playgroundTab"),
   sourceWorkspace: document.querySelector("#sourceWorkspace"),
@@ -205,6 +210,63 @@ function renderDetailCard() {
   `;
 }
 
+function setNoteStatus(text) {
+  refs.noteStatus.textContent = text;
+  refs.floatingNoteStatus.textContent = text;
+}
+
+function setNoteValue(value, source = "inline") {
+  if (source !== "inline" && refs.noteEditor.value !== value) {
+    refs.noteEditor.value = value;
+  }
+
+  if (source !== "floating" && refs.floatingNoteEditor.value !== value) {
+    refs.floatingNoteEditor.value = value;
+  }
+}
+
+function syncNoteEditorsState() {
+  const disabled = !state.activeDocId;
+  refs.noteEditor.disabled = disabled;
+  refs.floatingNoteEditor.disabled = disabled;
+}
+
+async function openNotesOverlay() {
+  if (!state.activeDocId || state.notesOverlayOpen) {
+    return;
+  }
+
+  state.notesOverlayOpen = true;
+  state.sourceHiddenForNotes = state.activeWorkspace === "source";
+  refs.notesOverlay.hidden = false;
+  document.body.classList.add("is-overlay-open");
+  setNoteValue(refs.noteEditor.value, "inline");
+
+  if (state.sourceHiddenForNotes) {
+    await window.learningApp.hideEmbeddedSource();
+  }
+
+  window.requestAnimationFrame(() => {
+    refs.floatingNoteEditor.focus();
+    refs.floatingNoteEditor.setSelectionRange(refs.floatingNoteEditor.value.length, refs.floatingNoteEditor.value.length);
+  });
+}
+
+async function closeNotesOverlay() {
+  if (!state.notesOverlayOpen) {
+    return;
+  }
+
+  state.notesOverlayOpen = false;
+  refs.notesOverlay.hidden = true;
+  document.body.classList.remove("is-overlay-open");
+
+  if (state.sourceHiddenForNotes) {
+    state.sourceHiddenForNotes = false;
+    await syncSourceView();
+  }
+}
+
 async function refreshSearch() {
   const filters = {
     query: refs.searchInput.value.trim(),
@@ -223,18 +285,19 @@ async function refreshSearch() {
 
 async function loadNote() {
   state.noteLoading = true;
-  refs.noteEditor.disabled = !state.activeDocId;
+  syncNoteEditorsState();
 
   if (!state.activeDocId) {
-    refs.noteEditor.value = "";
-    refs.noteStatus.textContent = "No document selected";
+    setNoteValue("");
+    setNoteStatus("No document selected");
+    await closeNotesOverlay();
     state.noteLoading = false;
     return;
   }
 
   const note = await window.learningApp.getNote(state.activeDocId);
-  refs.noteEditor.value = note?.contentMarkdown ?? "";
-  refs.noteStatus.textContent = "Saved locally";
+  setNoteValue(note?.contentMarkdown ?? "");
+  setNoteStatus("Saved locally");
   state.noteLoading = false;
 }
 
@@ -245,7 +308,7 @@ async function saveCurrentNote() {
 
   clearTimeout(state.noteTimer);
   state.noteTimer = null;
-  refs.noteStatus.textContent = "Saving locally…";
+  setNoteStatus("Saving locally…");
 
   const currentDocId = state.activeDocId;
   await window.learningApp.saveNote({
@@ -254,7 +317,7 @@ async function saveCurrentNote() {
   });
 
   if (state.activeDocId === currentDocId) {
-    refs.noteStatus.textContent = "Saved locally";
+    setNoteStatus("Saved locally");
   }
 }
 
@@ -263,7 +326,7 @@ function scheduleNoteSave() {
     return;
   }
 
-  refs.noteStatus.textContent = "Saving locally…";
+  setNoteStatus("Saving locally…");
   clearTimeout(state.noteTimer);
   state.noteTimer = window.setTimeout(() => {
     void saveCurrentNote();
@@ -494,7 +557,27 @@ function bindEvents() {
     });
   });
 
-  refs.noteEditor.addEventListener("input", scheduleNoteSave);
+  refs.noteEditor.addEventListener("input", () => {
+    setNoteValue(refs.noteEditor.value, "inline");
+    scheduleNoteSave();
+  });
+  refs.noteEditor.addEventListener("focus", () => {
+    void openNotesOverlay();
+  });
+  refs.floatingNoteEditor.addEventListener("input", () => {
+    setNoteValue(refs.floatingNoteEditor.value, "floating");
+    scheduleNoteSave();
+  });
+  refs.notesOverlay.addEventListener("click", (event) => {
+    if (event.target === refs.notesOverlay) {
+      void closeNotesOverlay();
+    }
+  });
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      void closeNotesOverlay();
+    }
+  });
 
   refs.sourceTab.addEventListener("click", () => setWorkspace("source"));
   refs.playgroundTab.addEventListener("click", () => setWorkspace("playground"));
