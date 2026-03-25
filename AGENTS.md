@@ -16,6 +16,7 @@ This repository follows a small-step repair workflow.
 - Do not mix layout, behavior, and cleanup changes in one patch unless the user approves it.
 - After each modification, build a fresh package so the user can review the current app state.
 - After each successful package build, launch the latest packaged app automatically unless the user says not to.
+- After each completed and verified refactor step, create a commit before moving on to the next step.
 - If packaging fails, stop and report the failure before making more changes.
 - Do not change line endings or reformat surrounding lines unless the task explicitly requires it.
 
