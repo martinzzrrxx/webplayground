@@ -656,12 +656,13 @@ a {
   min-width: 170px;
 }
 
-.new-draft-field select {
-  padding: 1px 4px;
-}
-
-.draft-actions-field select {
-  padding: 1px 4px;
+.compact-field-control {
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 #playgroundWorkspace .panel-header {
@@ -689,16 +690,6 @@ a {
 
 #playgroundWorkspace .compact span {
   font-size: 9px;
-}
-
-#playgroundWorkspace .search-field input,
-#playgroundWorkspace .select-field select {
-  height: 28px;
-  padding: 0 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.2;
 }
 
 .playground-layout {
