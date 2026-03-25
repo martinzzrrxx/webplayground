@@ -223,24 +223,26 @@ a {
   letter-spacing: 0.1em;
 }
 
-.search-field input {
+.search-field input,
+.select-field select,
+.note-editor {
   width: 100%;
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.search-field input {
   padding: 6px 9px;
   border-radius: 6px;
-  border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.94);
-  color: var(--text);
   font-size: 13px;
   font-weight: 400;
 }
 
 .select-field select {
-  width: 100%;
   padding: 1px 4px;
   border-radius: 6px;
-  border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.94);
-  color: var(--text);
   font-size: 10px;
   font-weight: 400;
 }
@@ -450,14 +452,11 @@ a {
 }
 
 .note-editor {
-  width: 100%;
   min-height: 0;
   resize: none;
   padding: 14px;
   border-radius: 16px;
-  border: 1px solid var(--line);
   background: rgba(248, 250, 252, 0.96);
-  color: var(--text);
   line-height: 1.6;
 }
 
