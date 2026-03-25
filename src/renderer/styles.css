@@ -99,13 +99,25 @@ a {
 .badge,
 .subtle-badge,
 .status-chip,
-.chip {
+.chip,
+.workspace-tab,
+.action-button,
+.mini-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-weight: 700;
+}
+
+.pill,
+.badge,
+.subtle-badge,
+.status-chip,
+.chip,
+.action-button,
+.mini-button {
   border-radius: 6px;
   font-size: 11px;
-  font-weight: 700;
 }
 
 .pill,
@@ -117,20 +129,24 @@ a {
 
 .badge {
   padding: 5px 9px;
+}
+
+.badge,
+.subtle-badge {
   min-width: 0;
   max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.badge {
   background: rgba(11, 87, 208, 0.12);
   color: var(--accent);
-  overflow-wrap: anywhere;
 }
 
 .subtle-badge {
   padding: 5px 9px;
-  min-width: 0;
-  max-width: 100%;
   background: rgba(16, 35, 61, 0.08);
   color: var(--muted);
-  overflow-wrap: anywhere;
 }
 
 .chip {
@@ -606,7 +622,6 @@ a {
 
 .action-button {
   padding: 9px 12px;
-  font-weight: 700;
 }
 
 .action-button.ghost {
@@ -616,7 +631,6 @@ a {
 .mini-button {
   padding: 4px 8px;
   font-size: 10px;
-  font-weight: 700;
 }
 
 .playground-toolbar {
